@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                                          http://www.springframework.org/schema/beans/spring-beans.xsd
+                                          http://www.springframework.org/schema/tx
+                                          http://www.springframework.org/schema/tx/spring-tx.xsd
+                                           http://www.springframework.org/schema/context
+                                           http://www.springframework.org/schema/context/spring-context.xsd">
+    <import resource="classpath:applicationContext.dao.xml"/>
+    <!--配置IOC需要扫描的包-->
+    <context:component-scan base-package="com.zqq.s2sh.service.impl"/>
+    <!--配置事务管理器-->
+    <bean id="hibernateTransactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!--配置事务支持注解-->
+    <tx:annotation-driven transaction-manager="hibernateTransactionManager"/>
+</beans>

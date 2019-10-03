@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                                          http://www.springframework.org/schema/beans/spring-beans.xsd
+                                          http://www.springframework.org/schema/context
+                                          http://www.springframework.org/schema/context/spring-context.xsd">
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <!--数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--hibernate可选配置-->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+        <!--hibernate映射  mappingLocations指定映射文件位置
+        packageToScan指定实体类所在的包-->
+        <property name="packagesToScan">
+            <array>
+                <value>com.zqq.s2sh.domain</value>
+            </array>
+        </property>
+    </bean>
+    <!--数据源-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/zqqdb?serverTimezone=UTC"/>
+        <property name="user" value="zqq"/>
+        <property name="password" value="123"/>
+    </bean>
+    <context:component-scan base-package="com.zqq.s2sh.dao.impl"/>
+</beans>
