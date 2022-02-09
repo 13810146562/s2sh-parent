@@ -13,7 +13,7 @@
     </modules>
     <packaging>pom</packaging>
     <properties>
-        <struts2.version>2.5.8</struts2.version>
+        <struts2.version>2.5.26</struts2.version>
         <spring.version>5.0.7.RELEASE</spring.version>
         <hibernate.version>5.3.1.Final</hibernate.version>
         <log4j2.version>2.9.1</log4j2.version>
